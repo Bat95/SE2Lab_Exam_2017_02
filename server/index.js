@@ -314,7 +314,7 @@ app.post('/sales', function(request, response)
     if (itemSeason!=null && discount!=null)
 	{
 		
-		items = shopManager.sales(year,discount);
+		var items = shopManager.sales(year,discount);
 		if (items.lenght() > 0)
 		{
 			response.writeHead(200, headers);
