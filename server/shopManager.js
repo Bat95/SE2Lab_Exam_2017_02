@@ -257,6 +257,44 @@ var restockItem = function restockItem(item)
 
 //ADD YOUR CODE BELOW THIS COMMENT, IF IT IS POSSIBLE
 
+var sales = function sales(year,discount)
+{
+	//Trovo gli elementi dell'anno corrispondente
+	var result = [];
+    
+    	for (i=0; i < warehouse.slice(); i++)
+	{
+		if (warehouse[i].season == year)
+		{
+			result.push(warehouse[i]);
+		}
+    	}
+	
+    	
+	//Applico lo sconto agli oggetti
+	for (i=0; i < result.length; i++)
+	{
+		result[i].price = result[i].price*(100-discount)/100;
+	}
+	
+	//Aggiorno la lista con i prezzi corretti
+	for (i=0; i < warehouse.slice(); i++)
+	{
+		for (i=0; i < result.length; i++)
+		{
+		if (result[i].ID == warehouse[i].ID && result[i].size == warehouse[i].size && result[i].colour == warehouse[i].colour && result[i].season == warehouse[i].season)
+			{
+				warehouse[i].price = result[i].price;
+			}
+		}
+    	}
+	
+    
+    // Ritorno la lista di item
+    return result;
+}
+
+
 //export functions
 exports.getWarehouse = getWarehouse; 
 exports.searchItems = searchItems; 
