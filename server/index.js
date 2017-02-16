@@ -274,6 +274,59 @@ app.post('/restockItem', function(request, response)
 
 //ADD YOUR CODE BELOW THIS COMMENT, IF IT IS POSSIBLE
 
+/**
+ * @brief sell item
+ * @return the sold item, identified by ID, Size and colour, decrese or remove the item if =1
+ */
+app.post('/sales', function(request, response) 
+{
+	var headers = {};
+	headers["Access-Control-Allow-Origin"] = "*";
+	headers["Access-Control-Allow-Methods"] = "POST, GET, PUT, DELETE, OPTIONS";
+	headers["Access-Control-Allow-Credentials"] = false;
+	headers["Access-Control-Max-Age"] = '86400'; // 24 hours
+	headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept";
+	headers["Content-Type"] = "application/json";
+
+    	var itemSeason;
+	var discount;
+	
+	//check body and parameters
+	if ( typeof request.body !== 'undefined' && request.body)
+	{
+        //ItemSeason
+		if ( typeof request.body.season !== 'undefined' && request.body.season)
+			 itemSeason = parseFloat(request.body.season);
+		else 
+			itemSeason = null;
+        
+        
+        //itemColour
+        if ( typeof request.body.discount !== 'undefined' && request.body.discount)
+            discount = request.body.discount;
+		else 
+			discount = null;       
+        
+	
+	}
+	    
+	
+    if (itemSeason!=null && discount!=null)
+	{
+		
+		items = shopManager.sales(year,discount);
+		if (items.lenght() > 0)
+		{
+			response.writeHead(200, headers);
+			response.end(JSON.stringify(items));
+		}
+		
+	}
+      
+
+});
+
+
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
